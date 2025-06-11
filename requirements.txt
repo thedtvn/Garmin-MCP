@@ -1,0 +1,8 @@
+mcp
+click
+uvicorn
+starlette
+
+# Build dependencies
+setuptools
+wheel
