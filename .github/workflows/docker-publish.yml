@@ -6,7 +6,7 @@ on:
 
 jobs:
   build-ghcr:
-    if: "!contains(github.event.head_commit.message, 'build')"
+    if: "contains(github.event.head_commit.message, 'build')"
     runs-on: ubuntu-latest
     permissions:
       contents: read
