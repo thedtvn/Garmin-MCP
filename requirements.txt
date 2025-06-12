@@ -2,6 +2,7 @@ mcp
 click
 uvicorn
 starlette
+garth
 
 # Build dependencies
 setuptools

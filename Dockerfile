@@ -1,13 +1,9 @@
 FROM python:3.11-slim
 
-WORKDIR /package
+WORKDIR /app
 
 COPY . .
 
-RUN pip install .
+RUN pip install -r requirements.txt
 
-WORKDIR /
-
-RUN rm -r /package
-
-ENTRYPOINT ["mbbank-mcp"]
+ENTRYPOINT ["python", "main.py"]
