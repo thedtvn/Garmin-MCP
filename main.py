@@ -5,7 +5,7 @@ import click
 import uvicorn
 import garth
 from typing import Optional
-from garmin_mcp import crate_mcp_server
+from garmin_mcp import create_mcp_server
 from starlette.applications import Starlette
 
 
@@ -31,10 +31,10 @@ def main(email: Optional[str], password: Optional[str], port: int, host: str, ss
         sys.exit(1)
     garmin_client = garth.Client()
     if os.path.exists("./auth/token.pikl"):
-        with open("./auth/token.pikl", "rb") as f:
-            garmin_client.oauth1_token, garmin_client.oauth2_token = pickle.load(f)
-        token = garmin_client.refresh_oauth2()
         try:
+            with open("./auth/token.pikl", "rb") as f:
+                garmin_client.oauth1_token, garmin_client.oauth2_token = pickle.load(f)
+            token = garmin_client.refresh_oauth2()
             # noinspection PyStatementEffect
             garmin_client.user_profile
         except:
@@ -53,7 +53,7 @@ def main(email: Optional[str], password: Optional[str], port: int, host: str, ss
         with open("./auth/token.pikl", "wb") as f:
             pickle.dump(token, f)
         eprint("Login successful. Token saved to ./auth/token.pikl")
-    mcp_server = crate_mcp_server(port=port)
+    mcp_server = create_mcp_server(garmin_client, port=port)
     if sse:
         streamable_http_app = mcp_server.streamable_http_app()
         sse_app = mcp_server.sse_app()

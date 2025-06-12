@@ -1,1 +1,1 @@
-from .core import crate_mcp_server
+from .core import create_mcp_server
