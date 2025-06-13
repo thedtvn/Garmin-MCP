@@ -103,7 +103,7 @@ def create_mcp_server(client: Client, **settings) -> FastMCP:
 
             if last_logged_time is None or (time_hr - last_logged_time).total_seconds() >= interval_minutes * 60:
                 data["heartRateValues"].append({
-                    "time": time_hr.strftime("%H:%M:%S"),
+                    "time_unix_ms": hr[0],
                     "value": hr[1]
                 })
                 last_logged_time = time_hr
